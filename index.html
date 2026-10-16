@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Lift Log</title>
+<style>
+:root{--bg:#f4eeff;--card:#fff;--tx:#1e1033;--mu:#6b5b8a;--ac:#7c3aed;--ac2:#ece3ff;--bd:#ddd0f5;--pk:#db2777;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#130a24;--card:#22143b;--tx:#f0e9ff;--mu:#a597c7;--ac:#a78bfa;--ac2:#33205a;--bd:#3b2866;--pk:#f472b6}}
+:root[data-theme=dark]{--bg:#130a24;--card:#22143b;--tx:#f0e9ff;--mu:#a597c7;--ac:#a78bfa;--ac2:#33205a;--bd:#3b2866;--pk:#f472b6}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--tx);font:16px system-ui,-apple-system,Segoe UI,sans-serif;padding-bottom:78px}
+main{max-width:560px;margin:0 auto;padding:10px 12px}h1{font-size:20px;margin:6px 2px;color:var(--ac)}
+button,input,select,textarea{font:inherit;color:inherit}button{border:0;background:none;cursor:pointer}
+.mu{color:var(--mu)}.s{font-size:13px}.c{text-align:center}
+.strip{display:flex;gap:6px;overflow-x:auto;padding:4px 0 8px}.chip{flex:0 0 46px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;border-radius:12px;background:var(--card);border:1px solid var(--bd)}
+.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}.chip.td{outline:2px dashed var(--ac)}.chip small{opacity:.7}
+.dot{width:7px;height:7px;border-radius:50%;background:transparent;display:block}.dot.upper{background:var(--ac)}.dot.lower{background:var(--pk)}.dot.rest{background:var(--mu)}.chip.on .dot.upper,.chip.on .dot.lower{background:#fff}
+.row{display:flex;align-items:center;gap:10px;margin:6px 0}.row input{flex:0 0 auto}
+.seg{display:flex;background:var(--ac2);border-radius:12px;padding:3px;margin:8px 0}.seg button{flex:1;padding:10px;border-radius:10px;font-weight:600}.seg .on{background:var(--ac);color:#fff}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;margin:10px 0}
+.eh{display:flex;justify-content:space-between;align-items:center;gap:8px}.tg{background:var(--ac2);color:var(--ac);border-radius:8px;padding:4px 10px;font-size:13px;font-weight:700}
+.nudge{background:#f59e0b22;border:1px solid #f59e0b;border-radius:10px;padding:8px;margin:8px 0;font-size:14px}.pr{background:var(--ac);color:#fff;border-radius:8px;padding:2px 8px;font-size:12px;margin-left:6px}
+.side{font-size:12px;font-weight:700;color:var(--pk);margin:8px 0 2px;text-transform:uppercase}
+.set{display:flex;align-items:center;gap:8px;margin:5px 0}.set span{width:18px;color:var(--mu)}.set input{width:0;flex:1}
+input,select,textarea{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px;min-width:0}
+.add{display:block;width:100%;margin-top:6px;padding:8px;border:1px dashed var(--ac);border-radius:10px;color:var(--ac);font-weight:600}
+.set button{color:var(--mu);padding:6px}
+label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}.chips{display:flex;gap:6px}.chips button{flex:1;padding:9px 0;border-radius:10px;background:var(--ac2)}.chips .on{background:var(--ac);color:#fff}
+.tx{width:100%}.two{display:flex;gap:10px}.two>div{flex:1}
+.nav{justify-content:space-between}.nav button{font-size:24px;padding:0 14px;color:var(--ac)}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}.grid small{color:var(--mu)}
+.cell{aspect-ratio:1;border-radius:10px;background:var(--card);border:1px solid var(--bd);position:relative;font-size:14px}.cell.upper{background:var(--ac);color:#fff}.cell.lower{background:var(--pk);color:#fff}.cell.rest{background:var(--ac2);color:var(--mu)}.cell.td{outline:2px dashed var(--ac)}.cell i{position:absolute;top:0;right:2px;font-size:10px;font-style:normal}
+.wr{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:10px 12px;margin:6px 0}.tag{font-size:12px;font-weight:700;border-radius:8px;padding:2px 8px;margin-left:6px;background:var(--ac2);color:var(--ac)}.tag.lower{color:var(--pk)}
+svg text{fill:var(--mu);font-size:10px}.aw{display:grid;grid-template-columns:1fr 1fr;gap:8px}.a{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:10px;text-align:center;opacity:.5}.a.u{opacity:1;border-color:var(--ac);background:var(--ac2)}.a b{display:block;font-size:14px}.a span{font-size:28px}
+.bar{height:5px;background:var(--bd);border-radius:3px;margin-top:6px}.bar i{display:block;height:100%;background:var(--ac);border-radius:3px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px)}nav button{flex:1;padding:10px 0;font-size:12px;color:var(--mu)}nav button b{display:block;font-size:20px}nav .on{color:var(--ac);font-weight:700}
+.st{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bd);font-size:14px}.st:last-child{border:0}
+.hero{display:flex;justify-content:space-between;align-items:center;gap:10px;background:linear-gradient(135deg,#6d28d9,#c026d3);color:#fff;border-radius:22px;padding:14px 16px;margin:4px 0 12px;box-shadow:0 8px 24px #7c3aed55}
+.hero h1{color:#fff;margin:0;font-size:22px}.hs{display:flex;gap:14px;text-align:center}.hs b{display:block;font-size:26px}.hs small{font-size:10px;opacity:.85;display:block;max-width:64px}
+.card{box-shadow:0 2px 12px #7c3aed14}.chip.on{box-shadow:0 4px 12px #7c3aed66}.cell,.wr{box-shadow:0 1px 6px #7c3aed10}nav{backdrop-filter:blur(10px)}.set input{text-align:center;font-weight:600}
+.eb{display:flex;gap:10px;align-items:center}.th{width:84px;flex:0 0 84px}.big{width:100%;max-height:310px}
+.sil{fill:var(--ac2);stroke:var(--bd);stroke-width:.8}.mm{fill:var(--mu);opacity:.2;stroke:var(--card);stroke-width:.4}.mm.s{fill:var(--ac);opacity:.6}.mm.p{fill:var(--pk);opacity:1;filter:drop-shadow(0 0 2.5px var(--pk))}
+.an{width:100%;margin-top:6px;padding:7px;border-radius:10px;background:var(--ac2);color:var(--ac);font-weight:600;font-size:13px}.ap{margin-top:8px;padding:10px;border-radius:14px;background:var(--bg)}
+.k{display:inline-block;border-radius:999px;padding:3px 10px;margin:2px;font-size:12px;background:var(--ac2);color:var(--ac)}.k.p{background:var(--pk);color:#fff}
+</style></head><body><main id="m"></main>
+<nav id="nv"></nav>
+<script>
+const $=s=>document.querySelector(s),K='liftlog.v1';
+let S={logs:{},lr:{}};try{Object.assign(S,JSON.parse(localStorage.getItem(K)||'{}'))}catch(e){}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const pd=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const add=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return iso(d)};
+const today=iso(new Date()),num=v=>parseFloat(v)||0,sets=e=>e?Object.values(e).flat():[];
+const sh=d=>pd(d).toLocaleDateString(undefined,{month:'short',day:'numeric'});
+let cur=today,tab='log',hv='month',hA=today;
+const PL={upper:["Bench press top set","Bench press working set","Lat pulldown wide grip","Lat pulldown supinated close grip","Preacher curl single arm","Strict bicep curl","Shoulder press","T-bar wide grip","T-bar close grip","Kelso shrugs","Single arm push downs","Lateral raises","Supination","Pec deck","Reverse pec deck","Weighted dips"],
+lower:["Deadlift top","Deadlift working","45° back extension","Calf raise inner","Calf raise outer","Single leg extension","Single leg hamstring curl","Pendulum squat","Ab crunches","Abduction","Adduction"]};
+const ALL=[...PL.upper,...PL.lower],DLR=new Set(["Preacher curl single arm","Single arm push downs","Lateral raises","Single leg extension","Single leg hamstring curl"]);
+let sel=ALL[0];
+const isLR=n=>n in S.lr?S.lr[n]:DLR.has(n);
+const getLog=(d,c)=>S.logs[d]||(c?S.logs[d]={type:'',ex:{},feel:{}}:null);
+function sess(n){const o=[];for(const d of Object.keys(S.logs).sort()){const e=(S.logs[d].ex||{})[n];if(!e)continue;const mx=k=>Math.max(0,...(e[k]||[]).map(s=>num(s.w)));const a=sets(e).filter(s=>num(s.w)>0);if(a.length)o.push({d,max:Math.max(...a.map(s=>num(s.w))),L:mx('L'),R:mx('R')})}return o}
+const fmt=e=>Object.entries(e||{}).map(([k,a])=>(k=='S'?'':k+': ')+a.filter(x=>x.w||x.r).map(x=>x.w+'×'+x.r).join(', ')).filter(x=>x&&x!='L: '&&x!='R: ').join(' · ');
+function stat(n){const s=sess(n);if(!s.length)return['–','No data'];const l=s.slice(-3);if(l.length==3&&l.every(x=>x.max==l[0].max))return['🟡','Plateau at '+l[0].max];const a=s[s.length-1].max,b=s.length>1?s[s.length-2].max:a;return a>b?['🟢','Up '+(a-b)]:a<b?['🔻','Down '+(b-a)]:['⚪','Holding']}
+function stats(){const ds=Object.keys(S.logs).sort(),best={},wk={};let w=0,vol=0,prs=0,fe=0;
+for(const d of ds){const l=S.logs[d];if(l.feel&&(l.feel.energy!=null||l.feel.pain!=null))fe++;if(l.type!='upper'&&l.type!='lower')continue;let any=0;
+for(const n in l.ex){const a=sets(l.ex[n]).filter(s=>num(s.w)>0);if(!a.length)continue;any=1;const m=Math.max(...a.map(s=>num(s.w)));a.forEach(s=>vol+=num(s.w)*num(s.r));if(best[n]&&m>best[n])prs++;best[n]=Math.max(best[n]||0,m)}
+if(any){w++;const k=add(d,-pd(d).getDay());wk[k]=(wk[k]||0)+1}}
+let run=0,bs=0,k=ds.length?add(ds[0],-pd(ds[0]).getDay()):today;const end=add(today,-pd(today).getDay());
+for(;k<=end;k=add(k,7)){if((wk[k]||0)>=2){run++;bs=Math.max(bs,run)}else if(k!=end)run=0}
+return{w,vol,prs,fe,best,bs}}
+const AW=[['🏋️','First rep','1 session',s=>s.w,1],['🔥','Getting going','10 sessions',s=>s.w,10],['💪','Regular','25 sessions',s=>s.w,25],['🏅','Committed','50 sessions',s=>s.w,50],['👑','Centurion','100 sessions',s=>s.w,100],
+['📆','2-week streak','2+ sessions/wk',s=>s.bs,2],['📈','4-week streak','2+ sessions/wk',s=>s.bs,4],['🚀','8-week streak','2+ sessions/wk',s=>s.bs,8],['🛡️','12-week streak','2+ sessions/wk',s=>s.bs,12],
+['🏆','First PR','Beat a past top weight',s=>s.prs,1],['⭐','10 PRs','',s=>s.prs,10],['🌟','50 PRs','',s=>s.prs,50],
+['🟣','Bench 135','Bench top set',s=>s.best['Bench press top set']||0,135],['🟣','Bench 225','Bench top set',s=>s.best['Bench press top set']||0,225],['🟣','Bench 315','Bench top set',s=>s.best['Bench press top set']||0,315],
+['⚫','Deadlift 225','Deadlift top',s=>s.best['Deadlift top']||0,225],['⚫','Deadlift 315','Deadlift top',s=>s.best['Deadlift top']||0,315],['⚫','Deadlift 405','Deadlift top',s=>s.best['Deadlift top']||0,405],
+['📦','100k lb moved','Total volume',s=>s.vol,1e5],['🚛','500k lb moved','Total volume',s=>s.vol,5e5],['🌋','1M lb moved','Total volume',s=>s.vol,1e6],['📝','Self-aware','Log how you felt 10×',s=>s.fe,10]];
+const openAn=new Set();
+const E=(x,y,a,b,r=0)=>`<ellipse cx="${x}" cy="${y}" rx="${a}" ry="${b}" transform="rotate(${r} ${x} ${y})"/>`,P=(x,y,a,b,r=0)=>E(x,y,a,b,r)+E(100-x,y,a,b,-r);
+const SIL=E(50,14,9,10)+'<rect x="45" y="22" width="10" height="9"/><path d="M28 36Q50 29 72 36L67 94Q50 101 33 94Z"/>'+P(17,73,6.5,38,4)+P(41,130,12.5,34,-3)+P(39,178,7.5,26,-1)+E(50,98,17,9);
+const MU={
+chest_up:{n:'Upper chest (clavicular pec major)',f:P(41,46,10,5,-8)},chest_low:{n:'Mid/lower chest (sternal pec major)',f:P(41,57,10,6,8)},
+delt_f:{n:'Front delt (anterior deltoid)',f:P(29,42,6,8)},delt_l:{n:'Side delt (lateral deltoid)',f:P(22,48,4.5,8),b:P(22,48,4.5,8)},delt_r:{n:'Rear delt (posterior deltoid)',b:P(28,43,6,7)},
+bi:{n:'Biceps (long & short head)',f:P(18,64,4.5,10)},brach:{n:'Brachialis / brachioradialis',f:P(14,77,3,5)},tri:{n:'Triceps (long, lateral, medial)',b:P(17,64,4.5,11)},fore:{n:'Forearms (flexors, extensors, supinator)',f:P(13,98,3.8,10),b:P(13,98,3.8,10)},
+lat:{n:'Lats & teres major',b:P(38,66,9,14,10)},trap_up:{n:'Upper traps',f:P(42,32,8,3.5,-20),b:P(42,33,8,4,-20)},trap_mid:{n:'Mid/lower traps',b:E(50,57,6,13)},rhom:{n:'Rhomboids & infraspinatus',b:P(43,46,4.5,5)},erec:{n:'Erector spinae (lower back)',b:P(45,82,4,9)},
+abs:{n:'Abs (rectus abdominis)',f:'<rect x="43" y="61" width="14" height="27" rx="5"/>'},obl:{n:'Obliques',f:P(35,75,5,11,-8)},
+glute:{n:'Glutes (max & med)',b:P(41,101,10,9)},quad:{n:'Quads (rectus femoris + vasti)',f:P(40,130,10,26,-3)},ham:{n:'Hamstrings (biceps femoris, semis)',b:P(40,131,9,23)},
+add:{n:'Adductors',f:P(46,120,4,16,6),b:P(46,120,4,16,6)},abd:{n:'Abductors (glute med/min, TFL)',f:P(30,108,4,9),b:P(30,106,4,8)},
+calf_i:{n:'Calf, medial gastroc',b:E(42,170,4,13)+E(58,170,4,13)},calf_o:{n:'Calf, lateral gastroc',b:E(34,171,3.5,12)+E(66,171,3.5,12)}};
+const XD={"Bench press top set":[['chest_low','chest_up'],['delt_f','tri'],'Heavy pressing: sternal pec major does most of the work, with anterior delts and triceps (lockout) assisting.'],
+"Lat pulldown wide grip":[['lat'],['bi','delt_r','trap_mid','rhom'],'Shoulder adduction pull. Wide grip biases upper lats and teres major; lower traps and biceps assist.'],
+"Lat pulldown supinated close grip":[['lat','bi'],['brach','trap_mid'],'Supinated close grip moves load to lower lats and the biceps long head, with more brachialis.'],
+"Preacher curl single arm":[['bi'],['brach','fore'],'Shoulder-flexed position stresses the short head and brachialis; brachioradialis assists.'],
+"Strict bicep curl":[['bi'],['brach','fore'],'Elbow flexion with no swing: both biceps heads, brachialis underneath, forearm flexors for grip.'],
+"Shoulder press":[['delt_f','delt_l'],['tri','trap_up','chest_up'],'Anterior and lateral delts drive the press; triceps lock out, upper traps rotate the scapula.'],
+"T-bar wide grip":[['trap_mid','rhom'],['delt_r','bi','erec'],'Wide grip flares the elbows: mid traps, rhomboids and rear delts, with erectors isometrically bracing.'],
+"T-bar close grip":[['lat','trap_mid'],['rhom','bi','erec'],'Neutral close grip: lower lats, teres major and mid-back thickness; biceps assist.'],
+"Kelso shrugs":[['trap_mid','rhom'],['delt_r','trap_up'],'Chest-supported scapular retraction with straight arms: mid traps and rhomboids, no arm drive.'],
+"Single arm push downs":[['tri'],['fore'],'Elbow extension: lateral and medial heads dominate; long head is less loaded with the arm at your side.'],
+"Lateral raises":[['delt_l'],['delt_f','trap_up'],'Middle deltoid abducts the arm, with the supraspinatus starting the lift; keep traps quiet.'],
+"Supination":[['fore'],['bi'],'Supinator and biceps rotate the forearm; train the wrist-rotation range and tendon health.'],
+"Pec deck":[['chest_low','chest_up'],['delt_f'],'Horizontal adduction: pec major with constant tension through the stretch and the squeeze.'],
+"Reverse pec deck":[['delt_r'],['rhom','trap_mid'],'Horizontal abduction: posterior delts, infraspinatus/teres minor, rhomboids pinch the scapulae.'],
+"Weighted dips":[['chest_low','tri'],['delt_f','chest_up'],'Lower sternal pec and triceps; lean forward for chest, stay upright for triceps.'],
+"Deadlift top":[['glute','ham','erec'],['quad','trap_up','lat','fore','trap_mid'],'Posterior chain: glute max, hamstrings, erectors; lats, traps and forearms hold the bar tight.'],
+"45° back extension":[['erec','glute'],['ham'],'Hip extension with a neutral spine: erectors and glute max, hamstrings assist.'],
+"Calf raise inner":[['calf_i'],['calf_o'],'Toes turned out biases the medial head of the gastrocnemius.'],
+"Calf raise outer":[['calf_o'],['calf_i'],'Toes turned in biases the lateral head of the gastrocnemius.'],
+"Single leg extension":[['quad'],[],'Rectus femoris plus vastus lateralis, medialis and intermedius; unilateral work exposes imbalances.'],
+"Single leg hamstring curl":[['ham'],['calf_i','calf_o'],'Knee flexion: biceps femoris and semitendinosus/semimembranosus; gastrocs assist.'],
+"Pendulum squat":[['quad'],['glute','add'],'Deep knee flexion with a guided path: heavy quad bias, glute max and adductors help out of the hole.'],
+"Ab crunches":[['abs'],['obl'],'Spinal flexion through the rectus abdominis; obliques stabilize the ribcage.'],
+"Abduction":[['abd'],['glute'],'Glute medius/minimus and TFL: pelvic stability and hip abduction.'],
+"Adduction":[['add'],[],'Adductor magnus, longus, brevis, plus gracilis and pectineus.']};
+[['Bench press working set','Bench press top set'],['Deadlift working','Deadlift top']].forEach(a=>XD[a[0]]=XD[a[1]]);
+const XM=n=>XD[n]||[[],[],''];
+function body(p,s,c){const v=k=>Object.entries(MU).map(([id,m])=>m[k]?`<g class="mm ${p.includes(id)?'p':s.includes(id)?'s':''}">${m[k]}</g>`:'').join('');
+return`<svg viewBox="0 0 210 215" class="${c}"><g class="sil">${SIL}</g>${v('f')}<g transform="translate(110 0)"><g class="sil">${SIL}</g>${v('b')}</g><text x="50" y="212" text-anchor="middle" style="font-size:9px">FRONT</text><text x="160" y="212" text-anchor="middle" style="font-size:9px">BACK</text></svg>`}
+const ks=(a,c)=>a.map(id=>`<span class="k ${c}">${MU[id].n}</span>`).join('');
+const anat=X=>`<div class="ap">${body(X[0],X[1],'big')}<p class="s">${X[2]}</p><div class="s"><b>Primary</b></div>${ks(X[0],'p')}${X[1].length?'<div class="s"><b>Assisting</b></div>'+ks(X[1],''):''}</div>`;
+function dayMap(t){const p=[...new Set(PL[t].flatMap(n=>XM(n)[0]))],s=[...new Set(PL[t].flatMap(n=>XM(n)[1]))].filter(x=>!p.includes(x));return`<div class="card"><b>${t[0].toUpperCase()+t.slice(1)} day targets</b>${body(p,s,'big')}<div style="margin-top:6px">${ks(p,'p')}${ks(s,'')}</div></div>`}
+function hero(){const last={};let ld=null;for(const d of Object.keys(S.logs).sort()){const l=S.logs[d];if(l.type!='upper'&&l.type!='lower')continue;for(const n in l.ex){if(!sets(l.ex[n]).some(s=>num(s.w)>0))continue;ld=d;XM(n)[0].forEach(id=>last[id]=d)}}
+const df=d=>Math.round((pd(today)-pd(d))/864e5),fr=Object.keys(MU).filter(id=>!last[id]||df(last[id])>=3).length;
+return`<div class="hero"><div><h1>Lift Log</h1><div class="s" style="opacity:.85">${ld?'Last lift '+sh(ld):'Log your first session'}</div></div><div class="hs"><div><b>${ld?df(ld):'–'}</b><small>days since last workout</small></div><div><b>${fr}</b><small>fresh muscle groups</small></div></div></div>`}
+function exCard(n){const i=ALL.indexOf(n),e=S.logs[cur].ex[n]||{},lr=isLR(n),sd=lr?['L','R']:['S'];
+const pr=sess(n).filter(x=>x.d<cur),last=pr[pr.length-1],cm=Math.max(0,...sets(e).map(s=>num(s.w)));
+const pl=pr.length>=3&&pr.slice(-3).every(x=>x.max==last.max),isPR=last&&cm>Math.max(...pr.map(x=>x.max));
+const X=XM(n);let h=`<div class="card"><div class="eh"><div class="eb">${body(X[0],X[1],'th')}<div><b>${n}${isPR?'<span class="pr">PR</span>':''}</b><div class="mu s">${X[0].map(id=>MU[id].n.split(' (')[0]).join(' · ')}</div></div></div><button class="tg" data-a="lr" data-n="${i}">${lr?'Left / Right':'Both'}</button></div><button class="an" data-a="an" data-n="${i}">🧬 ${openAn.has(i)?'Hide anatomy':'Anatomy'}</button>${openAn.has(i)?anat(X):''}`;
+if(last)h+=`<div class="mu s">Last (${sh(last.d)}): ${fmt(S.logs[last.d].ex[n])}</div>`;
+if(pl)h+=`<div class="nudge">🔔 ${last.max} for 3 sessions in a row. Add weight today (progressive overload).</div>`;
+sd.forEach(s=>{if(lr)h+=`<div class="side">${s=='L'?'Left':'Right'}</div>`;(e[s]||[]).forEach((x,j)=>{const a=`data-i="${i}" data-s="${s}" data-j="${j}"`;h+=`<div class="set"><span>${j+1}</span><input inputmode="decimal" placeholder="lb" value="${x.w}" ${a} data-f="w"><em>×</em><input inputmode="numeric" placeholder="reps" value="${x.r}" ${a} data-f="r"><button data-a="del" data-n="${i}" data-s="${s}" data-j="${j}">✕</button></div>`});
+h+=`<button class="add" data-a="set" data-n="${i}" data-s="${s}">+ Set</button>`});return h+'</div>'}
+function feelCard(l){const f=l.feel||{},ch=(k,a,b)=>'<div class="chips">'+Array.from({length:b-a+1},(_,i)=>i+a).map(v=>`<button class="${f[k]===v?'on':''}" data-a="feel" data-k="${k}" data-v="${v}">${v}</button>`).join('')+'</div>';
+const t=(k,p,m)=>`<input class="tx" ${m?`inputmode="decimal"`:''} placeholder="${p}" value="${f[k]||''}" data-fk="${k}">`;
+return`<div class="card"><b>How it felt</b><label>Energy (1 low, 5 high)</label>${ch('energy',1,5)}<label>Soreness coming in (1-5)</label>${ch('sore',1,5)}<label>Pain or discomfort (0 none, 5 severe)</label>${ch('pain',0,5)}<div style="margin-top:6px">${t('spot','Where? e.g. left shoulder, lower back')}</div><div class="two"><div><label>Sleep (hrs)</label>${t('sleep','7.5',1)}</div><div><label>Bodyweight</label>${t('bw','lb',1)}</div></div><label>Notes</label><textarea class="tx" rows="3" placeholder="Form, equipment, mood, food, stress..." data-fk="note">${f.note||''}</textarea></div>`}
+function vLog(){let h='<div class="strip" id="strip">';
+for(let i=-28;i<=7;i++){const d=add(today,i),dt=pd(d),l=S.logs[d];h+=`<button class="chip ${d==cur?'on':''} ${d==today?'td':''}" data-a="day" data-d="${d}"><small>${'SMTWTFS'[dt.getDay()]}</small><b>${dt.getDate()}</b><i class="dot ${l&&l.type||''}"></i></button>`}
+const l=S.logs[cur],t=l&&l.type;
+h+=`</div><div class="row"><input type="date" id="jump" value="${cur}"><span class="mu s">${pd(cur).toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})}</span></div><div class="seg">`+['upper','lower','rest'].map(x=>`<button class="${t==x?'on':''}" data-a="type" data-t="${x}">${x=='rest'?'Skipped':x[0].toUpperCase()+x.slice(1)}</button>`).join('')+'</div>';
+if(t!='upper'&&t!='lower')return h+`<p class="mu c">${t=='rest'?'Marked as skipped. Nothing counts for this day.':'Pick Upper or Lower to load that day\'s lifts.'}</p>`;
+h+=dayMap(t);PL[t].forEach(n=>h+=exCard(n));return h+feelCard(l)}
+function summ(d){const l=S.logs[d];if(!l||!l.type)return'No entry';if(l.type=='rest')return'Skipped';let c=0,v=0;for(const n in l.ex){const a=sets(l.ex[n]).filter(s=>num(s.w)>0);if(a.length){c++;a.forEach(s=>v+=num(s.w)*num(s.r))}}const f=l.feel||{};return`${c} lifts · ${Math.round(v).toLocaleString()} lb`+(f.energy?` · ⚡${f.energy}`:'')+(f.pain>=1?` · ⚠${f.pain}`:'')}
+function vHist(){const a=pd(hA),y=a.getFullYear(),m=a.getMonth(),ws=add(hA,-a.getDay());
+const title=hv=='month'?a.toLocaleDateString(undefined,{month:'long',year:'numeric'}):sh(ws)+' – '+sh(add(ws,6));
+let h=`<div class="seg">${['week','month'].map(x=>`<button class="${hv==x?'on':''}" data-a="hv" data-v="${x}">${x[0].toUpperCase()+x.slice(1)}</button>`).join('')}</div><div class="row nav"><button data-a="nav" data-v="-1">‹</button><b>${title}</b><button data-a="nav" data-v="1">›</button></div>`;
+if(hv=='month'){const f=new Date(y,m,1).getDay(),dim=new Date(y,m+1,0).getDate();h+='<div class="grid">'+[...'SMTWTFS'].map(x=>`<small>${x}</small>`).join('')+'<span></span>'.repeat(f);
+for(let d=1;d<=dim;d++){const k=iso(new Date(y,m,d)),l=S.logs[k];h+=`<button class="cell ${l&&l.type||''} ${k==today?'td':''}" data-a="open" data-d="${k}">${d}${l&&l.feel&&l.feel.pain>=3?'<i>⚠</i>':''}</button>`}
+h+='</div><p class="mu s c">Purple = upper · Pink = lower · Light = skipped · ⚠ = pain 3+</p>'}
+else for(let i=0;i<7;i++){const d=add(ws,i),l=S.logs[d];h+=`<button class="wr" data-a="open" data-d="${d}"><b>${pd(d).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}</b>${l&&(l.type=='upper'||l.type=='lower')?`<span class="tag ${l.type}">${l.type}</span>`:''}<div class="mu s">${summ(d)}</div></button>`}
+return h}
+function chart(ss,lr){if(ss.length<2)return'<p class="mu c">Log this lift on 2+ days to see the line.</p>';
+const W=340,H=190,p=34,se=lr?[['L','#a855f7'],['R','#ec4899']]:[['max','#8b5cf6']],v=ss.flatMap(x=>se.map(q=>x[q[0]])),mn=Math.min(...v),mx=Math.max(...v),r=(mx-mn)||1;
+const X=i=>p+i*(W-p-10)/(ss.length-1),Y=q=>H-26-(q-mn)/r*(H-26-14);let s=`<svg viewBox="0 0 ${W} ${H}" width="100%">`;
+for(let k=0;k<3;k++){const q=mn+r*k/2;s+=`<line x1="${p}" x2="${W-6}" y1="${Y(q)}" y2="${Y(q)}" stroke="var(--bd)"/><text x="2" y="${Y(q)+3}">${Math.round(q*10)/10}</text>`}
+se.forEach(([k,c])=>{s+=`<path d="${ss.map((x,i)=>(i?'L':'M')+X(i)+' '+Y(x[k])).join('')}" fill="none" stroke="${c}" stroke-width="2.5"/>`;ss.forEach((x,i)=>{const flat=i&&x[k]==ss[i-1][k];s+=`<circle cx="${X(i)}" cy="${Y(x[k])}" r="4" fill="${flat?'var(--card)':c}" stroke="${c}" stroke-width="2"/>`})});
+return s+`<text x="${p}" y="${H-8}">${sh(ss[0].d)}</text><text x="${W-6}" y="${H-8}" text-anchor="end">${sh(ss[ss.length-1].d)}</text></svg><div class="mu s c">Hollow dot = no weight gain vs last session${lr?' · purple L, pink R':''}</div>`}
+function vProg(){const ss=sess(sel),lr=isLR(sel),st=stat(sel);
+let h=`<select class="tx" id="exsel">${ALL.map(n=>`<option ${n==sel?'selected':''}>${n}</option>`).join('')}</select><div class="card"><div class="eh"><b>Top weight per session</b><span>${st[0]} ${st[1]}</span></div>${chart(ss,lr)}`;
+if(ss.length)h+=`<div class="mu s c">Best ${Math.max(...ss.map(x=>x.max))} · first ${ss[0].max} · latest ${ss[ss.length-1].max} · ${ss.length} sessions</div>`;
+h+='</div><div class="card"><b>All lifts</b>'+ALL.map(n=>{const q=stat(n);return`<div class="st"><span>${n}</span><span>${q[0]} ${q[1]}</span></div>`}).join('')+'</div>';
+const fl=Object.keys(S.logs).sort().reverse().filter(d=>(S.logs[d].feel||{}).pain>=2),cnt={};fl.forEach(d=>{const k=(S.logs[d].feel.spot||'').trim().toLowerCase();if(k)cnt[k]=(cnt[k]||0)+1});
+h+='<div class="card"><b>Pain flags</b>';
+if(!fl.length)h+='<p class="mu s">Nothing flagged yet. Log pain 2+ and where, and repeats will show up here.</p>';
+else{const rp=Object.entries(cnt).filter(x=>x[1]>1);if(rp.length)h+=`<div class="nudge">Recurring: ${rp.map(x=>x[0]+' ×'+x[1]).join(', ')}</div>`;
+fl.slice(0,8).forEach(d=>{const f=S.logs[d].feel;h+=`<div class="st"><span>${sh(d)} · ${S.logs[d].type}</span><span>⚠${f.pain} ${f.spot||''}${f.sleep?' · '+f.sleep+'h sleep':''}</span></div>`})}
+return h+'</div>'}
+function vAw(){const s=stats();let h=`<div class="card"><div class="two c"><div><b>${s.w}</b><div class="mu s">Sessions</div></div><div><b>${s.prs}</b><div class="mu s">PRs</div></div><div><b>${s.bs}</b><div class="mu s">Best wk streak</div></div><div><b>${Math.round(s.vol/1000)}k</b><div class="mu s">lb moved</div></div></div></div><div class="aw">`;
+AW.forEach(a=>{const g=a[3](s),u=g>=a[4];h+=`<div class="a ${u?'u':''}"><span>${a[0]}</span><b>${a[1]}</b><div class="mu s">${a[2]}</div><div class="bar"><i style="width:${Math.min(100,g/a[4]*100)}%"></i></div></div>`});
+return h+`</div><div class="card"><b>Backup</b><p class="mu s">Data lives in this browser. Export and paste it somewhere safe, or paste a backup here and Import.</p><textarea class="tx" id="bk" rows="3"></textarea><div class="two" style="margin-top:8px"><button class="add" data-a="exp">Export</button><button class="add" data-a="imp">Import</button></div></div>`}
+function render(){const T=[['log','🏋️','Log'],['hist','📅','History'],['prog','📈','Progress'],['aw','🏆','Awards']];
+$('#nv').innerHTML=T.map(t=>`<button class="${tab==t[0]?'on':''}" data-a="tab" data-t="${t[0]}"><b>${t[1]}</b>${t[2]}</button>`).join('');
+$('#m').innerHTML=hero()+({log:vLog,hist:vHist,prog:vProg,aw:vAw})[tab]();
+const c=$('.chip.on'),st=$('#strip');if(c&&st)st.scrollLeft=c.offsetLeft-st.clientWidth/2+c.clientWidth/2}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const D=b.dataset,a=D.a,n=ALL[D.n];let l;
+if(a=='tab')tab=D.t;else if(a=='day')cur=D.d;else if(a=='open'){cur=D.d;tab='log'}
+else if(a=='type'){l=getLog(cur,1);l.type=l.type==D.t?'':D.t}
+else if(a=='an'){const k=+D.n;openAn.has(k)?openAn.delete(k):openAn.add(k)}
+else if(a=='lr')S.lr[n]=!isLR(n);
+else if(a=='set'){l=getLog(cur,1);const ex=l.ex[n]||(l.ex[n]={}),ar=ex[D.s]||(ex[D.s]=[]),pr=sess(n).filter(x=>x.d<cur),pl=pr.length?((S.logs[pr[pr.length-1].d].ex[n]||{})[D.s]||[]):[],q=ar[ar.length-1]||pl[ar.length]||pl[pl.length-1]||{w:'',r:''};ar.push({w:q.w,r:q.r})}
+else if(a=='del')S.logs[cur].ex[n][D.s].splice(+D.j,1);
+else if(a=='feel'){l=getLog(cur,1);l.feel=l.feel||{};l.feel[D.k]=l.feel[D.k]===+D.v?null:+D.v}
+else if(a=='hv')hv=D.v;else if(a=='nav'){if(hv=='month'){const d=pd(hA);hA=iso(new Date(d.getFullYear(),d.getMonth()+ +D.v,1))}else hA=add(hA,7*D.v)}
+else if(a=='exp'){$('#bk').value=JSON.stringify(S);return}
+else if(a=='imp'){try{const o=JSON.parse($('#bk').value);if(o.logs){S=Object.assign({logs:{},lr:{}},o)}}catch(x){}}
+save();render()});
+document.addEventListener('input',e=>{const t=e.target,D=t.dataset;if(D.i!==undefined){S.logs[cur].ex[ALL[D.i]][D.s][+D.j][D.f]=t.value;save()}else if(D.fk){const l=getLog(cur,1);l.feel=l.feel||{};l.feel[D.fk]=t.value;save()}});
+document.addEventListener('change',e=>{if(e.target.id=='jump'&&e.target.value){cur=e.target.value;render()}if(e.target.id=='exsel'){sel=e.target.value;render()}});
+render();
+</script></body></html>
